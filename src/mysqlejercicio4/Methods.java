@@ -16,6 +16,18 @@ import java.io.FileWriter;
  * @author DAW
  */
 public class Methods {
+    
+    public static String leftAlignFormat(){
+        String leftAlignFormat = "\n\t"
+                + "|"
+                + " %-" + Integer.toString(50 - 1) + "s"
+                + "|"
+                + "  %-" + Integer.toString(9 - 1) + "s"
+                + "|"      
+                + "  %-" + Integer.toString(9 - 1) + "s"
+                + "|\n";
+        return leftAlignFormat;
+    }
 
     public static String removeFileExtension(String fileName) {
         return (fileName.substring(0, fileName.length() - (fileName.length() - fileName.lastIndexOf('.'))));
@@ -74,10 +86,10 @@ public class Methods {
     }
 
     public static String line(int cant, String caracter) {
-        String hyphen = "\t";
+        String hyphen = "";
         for (int i = 0; i < cant; i++) {
             hyphen += caracter;
-        }
+        }hyphen += "+";
         return hyphen;
     }
 

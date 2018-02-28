@@ -25,6 +25,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
+        final String LINE = "\t+" + line(50, "-") + line(10, "-") + line(10, "-");
+
         int id = 0;
         String nombre = null;
         String descripcion = null;
@@ -59,35 +62,28 @@ public class Main {
 
                 System.out.println(categName);
                 filename = new File(categFolder, categName);
-                
+
                 //formato para el título
-                 String leftAlignFormat = "\n\t"
-                + "|"
-                + " %-" + Integer.toString(50 - 1) + "s"
-                + "|"
-                + "  %-" + Integer.toString(9 - 1) + "s"
-                + "|"      
-                + "  %-" + Integer.toString(9 - 1) + "s"
-                + "|\n";
-                 
+                String leftAlignFormat = leftAlignFormat();
+
                 //extraccion del id de la categoria
                 int cat = rs.getInt(1);
                 stmt = con.prepareStatement("SELECT p.NomProducto, p.precio, p.Existencias from productos p where Categoria=? ");
                 stmt.setInt(1, cat);
                 ResultSet rs2 = stmt.executeQuery();
                 String textToBeWritten = "";
-                
+
                 //titulo tabla
-                textToBeWritten += line(74, "-");
-                textToBeWritten += String.format(leftAlignFormat,"          NOMBRE PRODUCTO","  PRECIO","   CANT");
-                
+                textToBeWritten += LINE;
+                textToBeWritten += String.format(leftAlignFormat, "          NOMBRE PRODUCTO", "PRECIO", "CANT");
+
                 while (rs2.next()) {
-                    textToBeWritten += line(74, "-");
-                    textToBeWritten += String.format(leftAlignFormat, rs2.getString(1) , rs2.getInt(2) , rs2.getInt(3) );
-                    
+                    textToBeWritten += LINE;
+                    textToBeWritten += String.format(leftAlignFormat, rs2.getString(1), rs2.getInt(2), rs2.getInt(3));
+
                 }
-                
-                textToBeWritten += line(74, "-");
+
+                textToBeWritten += LINE;
                 writeFile(filename, textToBeWritten);
 
                 //line(70, "-");
