@@ -59,7 +59,8 @@ public class Main {
 
                 System.out.println(categName);
                 filename = new File(categFolder, categName);
-
+                
+                //formato para el título
                  String leftAlignFormat = "\n\t"
                 + "|"
                 + " %-" + Integer.toString(50 - 1) + "s"
