@@ -60,6 +60,7 @@ public class Main {
                     System.out.println(se.getMessage());
                 }
 
+                //naming
                 System.out.println(categName);
                 filename = new File(categFolder, categName);
 
@@ -74,19 +75,18 @@ public class Main {
                 String textToBeWritten = "";
 
                 //titulo tabla
-                textToBeWritten += LINE;
+                textToBeWritten += LINE; //first line
                 textToBeWritten += String.format(leftAlignFormat, "          NOMBRE PRODUCTO", "PRECIO", "CANT");
 
                 while (rs2.next()) {
-                    textToBeWritten += LINE;
+                    textToBeWritten += LINE; //middle lines
                     textToBeWritten += String.format(leftAlignFormat, rs2.getString(1), rs2.getInt(2), rs2.getInt(3));
 
                 }
 
-                textToBeWritten += LINE;
+                textToBeWritten += LINE; // final line
                 writeFile(filename, textToBeWritten);
 
-                //line(70, "-");
             }
             if (rs != null) {
                 rs.close();
