@@ -18,6 +18,7 @@ import java.io.FileWriter;
 public class Methods {
 
     public static String leftAlignFormat() {
+        //Distance format for the table
         String leftAlignFormat = "\n\t"
                 + "|"
                 + " %-" + Integer.toString(50 - 1) + "s"
@@ -30,6 +31,7 @@ public class Methods {
     }
 
     public static String removeFileExtension(String fileName) {
+        //removes a file extension
         return (fileName.substring(0, fileName.length() - (fileName.length() - fileName.lastIndexOf('.'))));
     }
 
@@ -86,6 +88,7 @@ public class Methods {
     }
 
     public static String line(int cant, String caracter) {
+        //returns a line
         String hyphen = "";
         for (int i = 0; i < cant; i++) {
             hyphen += caracter;
@@ -131,6 +134,7 @@ public class Methods {
     }
 
     public static void wipeFolderContents(File dir) {
+        //Deletes a folder content
 
         try {
             String[] entries = dir.list();
@@ -144,6 +148,7 @@ public class Methods {
     }
 
     public static void createFolder(File dir) {
+        //Creates a folder
 
         if (dir.exists() && dir.isDirectory()) {
             // Directory erase

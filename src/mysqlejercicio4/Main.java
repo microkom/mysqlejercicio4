@@ -28,20 +28,13 @@ public class Main {
 
         final String LINE = "\t+" + line(50, "-") + line(10, "-") + line(10, "-");
 
-        int id = 0;
-        String nombre = null;
-        String descripcion = null;
-
-        Categorias categoria = new Categorias(id, nombre, descripcion);
-
         Conexion login = new Conexion();
         Connection con = null;
         PreparedStatement stmt = null;
+        
 
         File fileName = null;
-        FileWriter fw = null;
-        BufferedWriter bw = null;
-
+        
         try {
             con = login.conectar();
 
@@ -73,14 +66,15 @@ public class Main {
                 //titulo tabla
                 textToBeWritten += LINE; //first line
                 textToBeWritten += String.format(leftAlignFormat, "          NOMBRE PRODUCTO", "PRECIO", "CANT");
-
+                int contador = 0;
                 while (rs2.next()) {
                     textToBeWritten += LINE; //middle lines
                     textToBeWritten += String.format(leftAlignFormat, rs2.getString(1), rs2.getInt(2), rs2.getInt(3));
-
+                    contador++;
                 }
-
                 textToBeWritten += LINE; // final line
+                textToBeWritten += String.format("%-68s  %-5d| ","\n\t|Total Productos: ",contador);
+                textToBeWritten += "\n"+LINE; // final line
                 writeFile(fileName, textToBeWritten); //file written
 
                 if (rs2 != null) {
