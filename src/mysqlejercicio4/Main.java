@@ -38,13 +38,16 @@ public class Main {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        File filename = null;
+        File fileName = null;
         FileWriter fw = null;
         BufferedWriter bw = null;
 
         try {
             con = login.conectar();
 
+            File folderName = new File("Categorias");
+
+            createFolder(folderName);
             //CONSULTA DE LOS DATOS INSERTADOS
             stmt = con.prepareStatement("SELECT * FROM Categorias ");
 
@@ -52,17 +55,10 @@ public class Main {
             while (rs.next()) {
                 //tratamiento de fichero usando la categoria
                 String categName = rs.getString(2).replace('/', '_') + ".txt";
-                File categFolder = new File("Categorias");
-
-                try {
-                    categFolder.mkdir();
-                } catch (SecurityException se) {
-                    System.out.println(se.getMessage());
-                }
 
                 //naming
                 System.out.println(categName);
-                filename = new File(categFolder, categName);
+                fileName = new File(folderName, categName);
 
                 //formato para el título
                 String leftAlignFormat = leftAlignFormat();
@@ -85,9 +81,13 @@ public class Main {
                 }
 
                 textToBeWritten += LINE; // final line
-                writeFile(filename, textToBeWritten);
+                writeFile(fileName, textToBeWritten); //file written
 
+                if (rs2 != null) {
+                    rs2.close();
+                }
             }
+
             if (rs != null) {
                 rs.close();
             }

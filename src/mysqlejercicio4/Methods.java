@@ -16,14 +16,14 @@ import java.io.FileWriter;
  * @author DAW
  */
 public class Methods {
-    
-    public static String leftAlignFormat(){
+
+    public static String leftAlignFormat() {
         String leftAlignFormat = "\n\t"
                 + "|"
                 + " %-" + Integer.toString(50 - 1) + "s"
                 + "|"
                 + "  %-" + Integer.toString(9 - 1) + "s"
-                + "|"      
+                + "|"
                 + "  %-" + Integer.toString(9 - 1) + "s"
                 + "|\n";
         return leftAlignFormat;
@@ -89,7 +89,8 @@ public class Methods {
         String hyphen = "";
         for (int i = 0; i < cant; i++) {
             hyphen += caracter;
-        }hyphen += "+";
+        }
+        hyphen += "+";
         return hyphen;
     }
 
@@ -117,6 +118,9 @@ public class Methods {
                     if (bufferWillWrite != null) {
                         bufferWillWrite.close();
                     }
+                    if (fileToWrite != null) {
+                        fileToWrite.close();
+                    }
                 } catch (Exception er) {
                     System.out.println(er.getMessage());
                 }
@@ -126,26 +130,29 @@ public class Methods {
         }
     }
 
-    public static void createFolder(String folderName) {
-        File dir = new File(folderName);
+    public static void wipeFolderContents(File dir) {
 
-        // Directory erase
+        try {
+            String[] entries = dir.list();
+            for (String s : entries) {
+                File currentFile = new File(dir.getPath(), s);
+                currentFile.delete();
+            }
+        } catch (SecurityException se) {
+            System.out.println(se.getMessage());
+        }
+    }
+
+    public static void createFolder(File dir) {
+
         if (dir.exists() && dir.isDirectory()) {
-            try {
-                String[] entries = dir.list();
-                for (String s : entries) {
-                    File currentFile = new File(dir.getPath(), s);
-                    currentFile.delete();
-                }
-            } catch (SecurityException se) {
-                System.out.println(se.getMessage());
-            }
-        } else {
-            try {
-                dir.mkdir();
-            } catch (SecurityException se) {
-                System.out.println(se.getMessage());
-            }
+            // Directory erase
+            wipeFolderContents(dir);
+        }
+        try {
+            dir.mkdir();
+        } catch (SecurityException se) {
+            System.out.println(se.getMessage());
         }
     }
 }
